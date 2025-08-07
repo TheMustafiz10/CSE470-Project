@@ -1,0 +1,169 @@
+/* VolunteerRegistration.css */
+
+.volunteer-registration {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.volunteer-registration h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #cc0000;
+}
+
+.volunteer-registration p {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+form fieldset {
+  border: 2px solid #cc0000;
+  border-radius: 8px;
+  padding: 20px 25px 30px;
+  margin-bottom: 25px;
+}
+
+form legend {
+  font-weight: 600;
+  color: #cc0000;
+  padding: 0 10px;
+  font-size: 1.2rem;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form input[type="date"],
+form textarea {
+  width: 100%;
+  padding: 10px 15px;
+  margin-top: 8px;
+  margin-bottom: 18px;
+  border-radius: 6px;
+  border: 1.8px solid #ddd;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="tel"]:focus,
+form input[type="date"]:focus,
+form textarea:focus {
+  border-color: #cc0000;
+  outline: none;
+}
+
+form textarea {
+  min-height: 80px;
+}
+
+form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1rem;
+}
+
+form label input[type="checkbox"],
+form label input[type="radio"] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.volunteer-type {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 30px;
+  font-weight: 600;
+  color: #444;
+  justify-content: center;
+}
+
+.volunteer-type label {
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.availability-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.availability-group label {
+  flex: 1 0 140px;
+  font-weight: 400;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background-color: #cc0000;
+  color: #fff;
+  font-size: 1.15rem;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+button[type="submit"]:disabled {
+  background-color: #e0a3a3;
+  cursor: not-allowed;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: #a30000;
+}
+
+.footer-info {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.footer-info .login-btn {
+  background: none;
+  border: none;
+  color: #cc0000;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0;
+  margin-left: 6px;
+  font-size: 1rem;
+}
+
+.footer-info .login-btn:hover {
+  color: #800000;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .availability-group label {
+    flex: 1 0 100%;
+  }
+  
+  .volunteer-type {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
