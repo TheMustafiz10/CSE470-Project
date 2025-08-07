@@ -1,0 +1,144 @@
+
+.footer {
+  background-color: #f8f8f8;
+  padding: 60px 80px;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-logo-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-logo-section img {
+  width: 60px;
+}
+
+.footer-logo-section p {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 10px 0 4px 0;
+}
+
+.footer-logo-section span {
+  color: #666;
+  font-size: 14px;
+}
+
+.footer-links-section {
+  display: flex;
+  flex: 3;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-links-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links-section ul h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.footer-links-section ul li {
+  margin-bottom: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.footer-links-section ul li:hover {
+  /* color: #ff4141; */
+  color: #0077cc;
+  text-decoration: underline;
+}
+
+.footer-newsletter {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.footer-newsletter input {
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}
+
+.footer-newsletter button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #222;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.footer-newsletter button:hover {
+  background-color: #ff4141;
+}
+
+.footer hr {
+  margin: 40px 0;
+  border: none;
+  height: 2px;
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: #777;
+}
+
+.footer-social-icons {
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+  color: #555;
+}
+
+.footer-social-icons svg:hover {
+  color: #ff4141;
+  cursor: pointer;
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+  }
+
+  .footer-links-section {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+} 
