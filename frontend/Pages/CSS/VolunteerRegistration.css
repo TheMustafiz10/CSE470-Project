@@ -167,3 +167,62 @@ button[type="submit"]:hover:not(:disabled) {
     gap: 15px;
   }
 }
+
+
+
+
+
+
+/* Password Fields Styling */
+.password-input-container {
+  position: relative;
+  margin-bottom: 1.5rem; /* consistent with other input spacing */
+}
+
+.password-input-container input[type="password"],
+.password-input-container input[type="text"] {
+  width: 100%;
+  padding: 12px 40px 12px 12px; /* space for show/hide icon */
+  border: 1.8px solid #ddd; /* same as other inputs */
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.password-input-container input:focus {
+  border-color: #cc0000;
+  outline: none;
+  box-shadow: 0 0 5px rgba(204, 0, 0, 0.3);
+}
+
+.password-input-container svg {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.password-input-container svg:hover {
+  color: #cc0000;
+}
+
+.password-error-msg {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* Responsive tweaks for password fields */
+@media (max-width: 600px) {
+  .password-input-container input {
+    font-size: 0.95rem;
+  }
+  .password-input-container svg {
+    font-size: 1rem;
+  }
+}
