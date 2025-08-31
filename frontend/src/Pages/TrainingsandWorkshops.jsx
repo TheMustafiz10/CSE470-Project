@@ -1,279 +1,193 @@
+import React, { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import './CSS/TrainingsandWorkshops.css';
 
-import React, { useState, useCallback, useMemo } from 'react';
-import './CSS/VolunteerRegistration.css';
+const TrainingsandWorkshops = () => {
+  const [activeCategory, setActiveCategory] = useState('all');
 
-const VolunteerRegistration = () => {
-  const [volunteerType, setVolunteerType] = useState('');
-  const [formData, setFormData] = useState({
-    agreePolicy: false,
-    consentContact: false,
-    confirmInfo: false,
-    cyberLawConsent: false
-  });
-
-  const [dobError, setDobError] = useState('');
-
-  const volunteerRolesNonHelpline = React.useMemo(() => [
-  'Event Support', 'Fundraising', 'Community Outreach', 'Campus Ambassador',
-  'Social Media & Digital Promotion', 'Content Writing / Blogging',
-  'Graphic Design / Creative Support', 'Technical Support (e.g., IT, website)',
-  'Translation / Language Support', 'Photography / Videography',
-  'Mentorship / Training', 'Case Follow-up Coordinator',
-  'Crisis Response Assistant', 'Resource & Referral Assistant'
-], []);
-
-const volunteerRolesHelpline = React.useMemo(() => [
-  'Call/Chat Support Volunteer'
-], []);
-
-
-  const availabilityDays = useMemo(() => [
-    'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
-  ], []);
-
-  const availabilityTimes = useMemo(() => [
-    '12:00 AM – 4:00 AM', '4:00 AM – 8:00 AM', '8:00 AM – 12:00 PM',
-    '12:00 PM – 4:00 PM', '4:00 PM – 8:00 PM', '8:00 PM – 12:00 AM',
-    'Flexible / Available 24 Hours'
-  ], []);
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (name === 'dob') {
-      const dobDate = new Date(value);
-      const today = new Date();
-      let age = today.getFullYear() - dobDate.getFullYear();
-      const m = today.getMonth() - dobDate.getMonth();
-      const d = today.getDate() - dobDate.getDate();
-      if (m < 0 || (m === 0 && d < 0)) {
-        age--;
-      }
-      if (age < 18) {
-        setDobError('You must be at least 18 years old.');
-      } else {
-        setDobError('');
-      }
+  const workshops = [
+    {
+      id: 1,
+      title: "Mental Health First Aid",
+      category: "professional",
+      date: "2023-11-15",
+      duration: "2 days",
+      image: "/assets/mental-health-first-aid.jpg",
+      description: "Learn how to identify, understand and respond to signs of mental health and substance use challenges."
+    },
+    {
+      id: 2,
+      title: "Coping with Anxiety",
+      category: "public",
+      date: "2023-11-20",
+      duration: "3 hours",
+      image: "/assets/coping-with-anxiety.jpg",
+      description: "Practical techniques to manage anxiety and stress in daily life."
+    },
+    {
+      id: 3,
+      title: "Suicide Prevention Gatekeeper",
+      category: "professional",
+      date: "2023-11-25",
+      duration: "1 day",
+      image: "/assets/suicide-prevention.jpg",
+      description: "Training for identifying at-risk individuals and connecting them with appropriate resources."
+    },
+    {
+      id: 4,
+      title: "Mindfulness Meditation",
+      category: "public",
+      date: "2023-12-01",
+      duration: "2 hours",
+      image: "/assets/mindfulness.jpg",
+      description: "Learn mindfulness techniques to improve mental wellbeing and reduce stress."
+    },
+    {
+      id: 5,
+      title: "Youth Mental Health",
+      category: "youth",
+      date: "2023-12-05",
+      duration: "1 day",
+      image: "/assets/youth-mental-health.jpg",
+      description: "Specialized training for supporting mental health in children and adolescents."
     }
+  ];
 
-    if (name === 'phone' || name === 'postalCode') {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-      return;
-    }
-
-    if (type === 'checkbox') {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: checked,
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
-  };
-
-  const isFormValid = useCallback(() => {
-  const requiredFields = ['fullName', 'email', 'phone', 'dob', 'street', 'city', 'state', 'postalCode'];
-  const filledFields = requiredFields.every(field => formData[field] && formData[field].trim() !== '');
-  const consentChecks = formData.agreePolicy && formData.consentContact && formData.confirmInfo && formData.cyberLawConsent;
-  const availabilityDayChecked = availabilityDays.some(day => formData[day]);
-  const availabilityTimeChecked = availabilityTimes.some(time => formData[time]);
-  const hasSelectedVolunteerType = volunteerType !== '';
-
-
-  let volunteerInterestSelected = false;
-  if (volunteerType === 'non-helpline') {
-    volunteerInterestSelected = volunteerRolesNonHelpline.some(role => formData[role]) || !!formData.otherNonHelpline?.trim();
-  } else if (volunteerType === 'helpline') {
-    volunteerInterestSelected = volunteerRolesHelpline.some(role => formData[role]);
-  }
+  const filteredWorkshops = activeCategory === 'all' 
+    ? workshops 
+    : workshops.filter(workshop => workshop.category === activeCategory);
 
   return (
-    filledFields &&
-    consentChecks &&
-    availabilityDayChecked &&
-    availabilityTimeChecked &&
-    hasSelectedVolunteerType &&
-    volunteerInterestSelected &&
-    dobError === ''
-  );
-} , [formData, volunteerType, dobError, availabilityDays, availabilityTimes, volunteerRolesNonHelpline, volunteerRolesHelpline]);
+    <div className="trainings-container">
+      <div className="trainings-hero">
+        <h1>Training & Workshops</h1>
+        <p>Empowering individuals and communities through education and skill-building for mental health support.</p>
+      </div>
 
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!isFormValid()) {
-      alert("Please complete all required fields.");
-      return;
-    }
-    console.log('Submitted data:', formData);
-    alert('Registration successful!');
- 
-    setFormData({
-      agreePolicy: false,
-      consentContact: false,
-      confirmInfo: false,
-      cyberLawConsent: false
-    });
-    setVolunteerType('');
-    setDobError('');
-    e.target.reset();
-  };
-
-  return (
-    <div className="volunteer-registration">
-      <h1>Volunteer Registration Form</h1>
-      <p>Thank you for your interest in volunteering with us! Please fill out the information below.</p>
-      <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>👤 Personal Information</legend>
-          <input name="fullName" placeholder="Full Name" onChange={handleChange} />
-          <input name="email" type="email" placeholder="Email Address" onChange={handleChange} />
-          <input name="phone" placeholder="Phone Number" onChange={handleChange} inputMode="numeric" />
-          {formData.phone && /\D/.test(formData.phone) && (
-            <p style={{ color: 'red' }}>Phone number must contain only digits.</p>
-          )}
-          <div>
-            <input type="date" name="dob" max={new Date().toISOString().split("T")[0]} onChange={handleChange} />
-            {dobError && <p style={{ color: 'red', fontSize: '0.9rem', marginTop: '4px' }}>{dobError}</p>}
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>📍 Address</legend>
-          <input name="street" placeholder="Street Address" onChange={handleChange} />
-          <input name="city" placeholder="City" onChange={handleChange} />
-          <input name="state" placeholder="State/Province" onChange={handleChange} />
-          <input name="postalCode" placeholder="Postal Code" onChange={handleChange} inputMode="numeric" />
-          {formData.postalCode && /\D/.test(formData.postalCode) && (
-            <p style={{ color: 'red' }}>Postal code must contain only digits.</p>
-          )}
-        </fieldset>
-
-        <div className="volunteer-type">
-          <label>
-            <input
-                type="radio"
-                value="non-helpline"
-                checked={volunteerType === 'non-helpline'}
-                onChange={() => {
-                    setVolunteerType('non-helpline');
-          
-                    setFormData(prev => {
-                    const newData = { ...prev };
-                    volunteerRolesHelpline.forEach(role => {
-                        delete newData[role];
-                    });
-                    return newData;
-                    });
-                }}
-            /> Non-Helpline Volunteer
-          </label>
-          <label>
-            <input
-                type="radio"
-                value="helpline"
-                checked={volunteerType === 'helpline'}
-                onChange={() => {
-                    setVolunteerType('helpline');
-              
-                    setFormData(prev => {
-                    const newData = { ...prev };
-                    volunteerRolesNonHelpline.forEach(role => {
-                        delete newData[role];
-                    });
-                    return newData;
-                    });
-                }}
-            /> Helpline Volunteer
-          </label>
-        </div>
-
-        {volunteerType === 'non-helpline' && (
-          <fieldset>
-            <legend>💼 Volunteer Interests (Non-Helpline)</legend>
-            {volunteerRolesNonHelpline.map((role, idx) => (
-              <label key={idx}>
-                <input type="checkbox" name={role} onChange={handleChange} /> {role}
-              </label>
-            ))}
-            <input name="otherNonHelpline" placeholder="Other: Please Specify" onChange={handleChange} />
-          </fieldset>
-        )}
-
-        {volunteerType === 'helpline' && (
-          <fieldset>
-            <legend>💼 Volunteer Interests (Helpline)</legend>
-            {volunteerRolesHelpline.map((role, idx) => (
-              <label key={idx}>
-                <input type="checkbox" name={role} onChange={handleChange} /> {role}
-              </label>
-            ))}
-          </fieldset>
-        )}
-
-        <fieldset>
-          <legend>🕒 Availability</legend>
-          <div>
-            <strong>Days:</strong><br />
-            {availabilityDays.map((day, idx) => (
-              <label key={idx}>
-                <input type="checkbox" name={day} onChange={handleChange} /> {day}
-              </label>
-            ))}
-          </div>
-          <div>
-            <strong>Times:</strong><br />
-            {availabilityTimes.map((time, idx) => (
-              <label key={idx}>
-                <input type="checkbox" name={time} onChange={handleChange} /> {time}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Additional Information</legend>
-          <textarea name="whyVolunteer" placeholder="Why do you want to volunteer with us?" onChange={handleChange}></textarea>
-          <textarea name="skillsExperience" placeholder="Do you have any relevant skills or experience?" onChange={handleChange}></textarea>
-        </fieldset>
-
-        <fieldset>
-          <legend>✅ Agreement & Consent</legend>
-          <label>
-            <input type="checkbox" name="agreePolicy" checked={formData.agreePolicy} onChange={handleChange} />
-            I agree to follow the organization’s volunteer policies and code of conduct.
-          </label>
-          <label>
-            <input type="checkbox" name="consentContact" checked={formData.consentContact} onChange={handleChange} />
-            I consent to be contacted via email or phone regarding volunteer opportunities.
-          </label>
-          <label>
-            <input type="checkbox" name="confirmInfo" checked={formData.confirmInfo} onChange={handleChange} />
-            I confirm that the information provided is accurate to the best of my knowledge.
-          </label>
-          <label>
-            <input type="checkbox" name="cyberLawConsent" checked={formData.cyberLawConsent} onChange={handleChange} />
-            I understand that any misuse of user information may result in legal action under the Cyber Security Act of Bangladesh.
-          </label>
-        </fieldset>
-
-        <button type="submit" disabled={!isFormValid()}>
-          Submit
+      <div className="category-filter">
+        <button 
+          className={activeCategory === 'all' ? 'active' : ''} 
+          onClick={() => setActiveCategory('all')}
+        >
+          All Workshops
         </button>
+        <button 
+          className={activeCategory === 'professional' ? 'active' : ''} 
+          onClick={() => setActiveCategory('professional')}
+        >
+          Professional Training
+        </button>
+        <button 
+          className={activeCategory === 'public' ? 'active' : ''} 
+          onClick={() => setActiveCategory('public')}
+        >
+          Public Workshops
+        </button>
+        <button 
+          className={activeCategory === 'youth' ? 'active' : ''} 
+          onClick={() => setActiveCategory('youth')}
+        >
+          Youth Programs
+        </button>
+      </div>
 
-        <div className="footer-info">
-          <p>Already have an account? <button className="login-btn">Login Here</button></p>
-          <p>By continuing, I agree to the terms and conditions of use & privacy policy</p>
+      <div className="featured-slider">
+        <h2>Featured Workshops</h2>
+        <Swiper
+          spaceBetween={30}
+          centeredSlides={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          modules={[Autoplay, Pagination, Navigation]}
+          className="mySwiper"
+        >
+          {workshops.slice(0, 3).map(workshop => (
+            <SwiperSlide key={workshop.id}>
+              <div className="slider-content">
+                <div className="slider-text">
+                  <h3>{workshop.title}</h3>
+                  <p>{workshop.description}</p>
+                  <div className="workshop-details">
+                    <span className="date">{workshop.date}</span>
+                    <span className="duration">{workshop.duration}</span>
+                  </div>
+                  <button className="register-btn">Register Now</button>
+                </div>
+                <div className="slider-image">
+                  <img src={workshop.image} alt={workshop.title} />
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      <div className="workshops-grid">
+        <h2>Upcoming Workshops</h2>
+        <div className="grid-container">
+          {filteredWorkshops.map(workshop => (
+            <div key={workshop.id} className="workshop-card">
+              <div className="card-image">
+                <img src={workshop.image} alt={workshop.title} />
+                <span className="category-badge">{workshop.category}</span>
+              </div>
+              <div className="card-content">
+                <h3>{workshop.title}</h3>
+                <p>{workshop.description}</p>
+                <div className="card-details">
+                  <div className="detail-item">
+                    <span className="label">Date:</span>
+                    <span className="value">{workshop.date}</span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="label">Duration:</span>
+                    <span className="value">{workshop.duration}</span>
+                  </div>
+                </div>
+                <button className="card-btn">Learn More</button>
+              </div>
+            </div>
+          ))}
         </div>
-      </form>
+      </div>
+
+      <div className="training-benefits">
+        <h2>Benefits of Our Training Programs</h2>
+        <div className="benefits-grid">
+          <div className="benefit-item">
+            <div className="benefit-icon">📚</div>
+            <h3>Evidence-Based</h3>
+            <p>Our programs are developed based on the latest research in mental health.</p>
+          </div>
+          <div className="benefit-item">
+            <div className="benefit-icon">👥</div>
+            <h3>Expert Facilitators</h3>
+            <p>Learn from experienced mental health professionals and educators.</p>
+          </div>
+          <div className="benefit-item">
+            <div className="benefit-icon">🔄</div>
+            <h3>Practical Skills</h3>
+            <p>Gain actionable techniques you can apply immediately in your daily life.</p>
+          </div>
+          <div className="benefit-item">
+            <div className="benefit-icon">🤝</div>
+            <h3>Community Building</h3>
+            <p>Connect with others who share your interest in mental health support.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default VolunteerRegistration;
+export default TrainingsandWorkshops;
